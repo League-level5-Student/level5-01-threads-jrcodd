@@ -13,6 +13,7 @@ package _05_Synchronized_Swimming;
  * takes them 2 seconds to complete a lap! They have agreed to each take turns swimming
  * one lap at a time. Your job is to make sure they follow the rules.
  */
+
 public class SynchronizedSwimming {
 	private static final Object swimmingPool = new Object();
 
@@ -21,19 +22,21 @@ public class SynchronizedSwimming {
 		Swimmer b = new Swimmer("Sally");
 		a.start();
 		b.start();
+		
 	}
 
 	/*
 	 * Refactor this method using a synchronized block to ensure a lock must be held on
 	 * the swimmingPool object until the swimmer has finished their lap.
 	 */
-	private static void swimLap(Swimmer swimmer) throws InterruptedException {
-		System.out.println(swimmer.name + " started a lap!");
-		Thread.sleep(2000);
+	
+	 private static void swimLap(Swimmer swimmer) throws InterruptedException {
+	synchronized(swimmingPool) {	System.out.println(swimmer.name + " started a lap!");
+		Thread.sleep(2000);}
 		System.out.println(swimmer.name + " finished!");
 	}
 
-	public static void takeTurn(Swimmer swimmer) {
+	 public static void takeTurn(Swimmer swimmer) {
 		try {
 			swimLap(swimmer);
 			Thread.sleep(100);
